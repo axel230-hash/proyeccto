@@ -79,7 +79,7 @@ togglePassword.addEventListener("click", () => {
 <body>
     <style>
   body{
-    background-image: url("img/si.jpg");
+    background-image: url("img/o.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
