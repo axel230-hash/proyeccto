@@ -1,3 +1,13 @@
+<?php
+
+require_once "auth.php";
+
+$usuario = validarJWT();
+
+echo "Bienvenido " . $usuario->usuario;
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
