@@ -2,6 +2,11 @@
 session_start();
 include("conexion.php");
 
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Firebase\JWT\JWT;
+
 $mensaje = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -23,12 +28,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $fila = $resultado->fetch_assoc();
 
         // Verificar contraseña encriptada
-        if(password_verify($contrasena, $fila['contrasena'])){
+       if (password_verify($contrasena, $fila['contrasena'])) {
 
-            $_SESSION['usuario'] = $usuario;
+    $secret = "MI_CLAVE_SUPER_SEGURA_2025";
 
-            header("Location: plantilla.php");
-            exit();
+    $payload = [
+        'id' => $fila['id'],
+        'usuario' => $fila['usuario'],
+        'iat' => time(),
+        'exp' => time() + 3600
+    ];
+
+    $token = JWT::encode($payload, $secret, 'HS256');
+
+    $_SESSION['token'] = $token;
+
+    header("Location: plantilla.php");
+    exit();
 
         }else{
 
